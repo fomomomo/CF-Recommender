@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from pyparsing import originalTextFor
 import seaborn as sns
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import sigmoid_kernel
@@ -17,7 +18,7 @@ class Recommender:
     # Retrieve the entire products dataset
     def get_products(self):
         products = pd.read_csv("final_products.csv")
-        productList = products.values.tolist()
+        productList = products.to_json(orient='index')
         numOfProducts = len(productList)
 
         return products, productList, numOfProducts
@@ -46,7 +47,7 @@ class Recommender:
         product_indices = [i[0] for i in sig_scores]
         
         #Top 10 most similar products
-        return self.products.iloc[product_indices].values.tolist()
+        return self.products.iloc[product_indices].to_json(orient='index')
 
 
 

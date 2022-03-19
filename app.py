@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from Recommender import Recommender
 import os
+import json
 
 app = Flask(__name__)
 
@@ -15,13 +16,14 @@ def getRecommendations():
         if productId != None:
             recommendations = REC.getProductRecommendation(int(productId))
         print(recommendations)
-        return jsonify(recommendations)
+        return json.loads(recommendations)
 
 
 @app.route('/getProductList', methods=['GET'])
 def getProductList():
     if request.method == 'GET':
-        return jsonify(REC.productList)
+       
+        return json.loads(REC.productList)
 
 
 
